@@ -12,4 +12,5 @@ Install Dependencies
 Run
 ---
 
-    % bundle exec ruby teruteru.rb 東京
+    % ruby teruteru.rb --help
+    % ruby teruteru.rb -city 東京 -interval 600 -rain 30

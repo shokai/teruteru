@@ -19,4 +19,5 @@ PLATFORMS
 
 DEPENDENCIES
   arduino_firmata
+  args_parser
   weather_jp
