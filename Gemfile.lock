@@ -1,0 +1,22 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    arduino_firmata (0.2.8)
+      args_parser (>= 0.1.4)
+      event_emitter (>= 0.2.4)
+      serialport (>= 1.1.0)
+    args_parser (0.1.4)
+    event_emitter (0.2.5)
+    nokogiri (1.5.9)
+    rake (10.0.4)
+    serialport (1.1.0)
+    weather_jp (1.0.3)
+      nokogiri (~> 1.5.5)
+      rake (>= 0.9.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  arduino_firmata
+  weather_jp
