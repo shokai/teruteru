@@ -4,7 +4,7 @@ require 'arduino_firmata'
 require 'weather_jp'
 
 if ARGV.empty?
-  STDERR.puts "ruby #{$0} yokohama"
+  STDERR.puts "  % ruby #{$0} yokohama"
   exit 1
 end
 weather = WeatherJp.get ARGV.shift
