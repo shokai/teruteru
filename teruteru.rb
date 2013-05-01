@@ -33,9 +33,13 @@ loop do
   end
   puts weather
   if weather.rain.to_i > args[:rain]
+    arduino.digital_write LED_RED, false
+    arduino.digital_write LED_GREEN, false
     arduino.digital_write LED_BLUE, true
   else
     arduino.digital_write LED_RED, true
+    arduino.digital_write LED_GREEN, false
+    arduino.digital_write LED_BLUE, false
   end
   sleep args[:interval]
 end
