@@ -26,12 +26,12 @@ arduino = ArduinoFirmata.connect args[:arduino]
 loop do
   begin
     weather = WeatherJp.get args[:city], :today
-  rescue => e
+  rescue StandardError, Timeout::Error => e
     STDERR.puts e
     sleep args[:interval]
     next
   end
-  puts weather
+  puts "#{weather} - #{Time.now}"
   if weather.rain.to_i > args[:rain]
     arduino.digital_write LED_RED, false
     arduino.digital_write LED_GREEN, false
