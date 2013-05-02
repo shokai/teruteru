@@ -32,7 +32,7 @@ loop do
     next
   end
   puts "#{weather} - #{Time.now}"
-  if weather.rain.to_i > args[:rain]
+  if weather.rain > args[:rain]
     arduino.digital_write LED_RED, false
     arduino.digital_write LED_GREEN, false
     arduino.digital_write LED_BLUE, true
