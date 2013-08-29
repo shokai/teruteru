@@ -1,11 +1,11 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    arduino_firmata (0.3.0)
+    arduino_firmata (0.3.2)
       args_parser (>= 0.1.4)
       event_emitter (>= 0.2.4)
       serialport (>= 1.1.0)
-    args_parser (0.1.6)
+    args_parser (0.2.0)
     dotenv (0.8.0)
     event_emitter (0.2.5)
     foreman (0.63.0)
