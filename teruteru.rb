@@ -12,35 +12,30 @@ args = ArgsParser.parse ARGV do
   arg :arduino, 'arduino port', :default => ArduinoFirmata.list[0]
   arg :city, 'city', :alias => :c, :default => '東京'
   arg :rain, '降水確率のしきい値 (%)', :default => 30
-  arg :interval, 'weather check interval (sec)', :alias => :i, :default => 600
   arg :help, 'show help', :alias => :h
 end
 
 if args.has_option? :help
   STDERR.puts args.help
-  STDERR.puts "e.g.  ruby #{$0} -city 鎌倉 -interval 3600"
+  STDERR.puts "e.g.  ruby #{$0} -city 鎌倉"
   exit 1
 end
 
-arduino = ArduinoFirmata.connect args[:arduino]
+begin
+  weather = WeatherJp.get args[:city], :today
+rescue StandardError, Timeout::Error => e
+  STDERR.puts e
+  exit
+end
+puts "#{weather} - #{Time.now}"
 
-loop do
-  begin
-    weather = WeatherJp.get args[:city], :today
-  rescue StandardError, Timeout::Error => e
-    STDERR.puts e
-    sleep args[:interval]
-    next
-  end
-  puts "#{weather} - #{Time.now}"
-  if weather.rain > args[:rain]
-    arduino.digital_write LED_RED, false
-    arduino.digital_write LED_GREEN, false
-    arduino.digital_write LED_BLUE, true
-  else
-    arduino.digital_write LED_RED, true
-    arduino.digital_write LED_GREEN, false
-    arduino.digital_write LED_BLUE, false
-  end
-  sleep args[:interval]
+arduino = ArduinoFirmata.connect args[:arduino]
+if weather.rain > args[:rain]
+  arduino.digital_write LED_RED, false
+  arduino.digital_write LED_GREEN, false
+  arduino.digital_write LED_BLUE, true
+else
+  arduino.digital_write LED_RED, true
+  arduino.digital_write LED_GREEN, false
+  arduino.digital_write LED_BLUE, false
 end
